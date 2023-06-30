@@ -51,7 +51,7 @@ class _DetailRegisterKgState extends State<DetailRegisterKg> {
         ButtonWidget(
           text: 'Continue',
           onPressed: () {
-            Get.off(KgSumary());
+            // Get.off(KgSumary());
           },
         ).pOnly(left: 20, right: 20, bottom: 20, top: 5),
       ]),

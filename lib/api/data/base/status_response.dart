@@ -8,11 +8,13 @@ class StatusResponse {
   int? status;
   String? name;
   String? message;
+  dynamic details;
 
   StatusResponse({
     this.status,
     this.name,
     this.message,
+    this.details,
   });
 
   factory StatusResponse.fromJson(Map<String, dynamic> json) =>

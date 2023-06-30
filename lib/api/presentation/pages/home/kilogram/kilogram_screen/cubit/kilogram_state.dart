@@ -14,6 +14,7 @@ class KilogramIsLoading extends KilogramState {}
 
 class KilogramIsSucces extends KilogramState {
   List<KilogramData>? data;
+
   KilogramIsSucces({
     this.data,
   });

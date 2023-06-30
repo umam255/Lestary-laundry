@@ -8,11 +8,21 @@ class KilogramScreen extends StatefulWidget {
 }
 
 class _KilogramScreenState extends State<KilogramScreen> {
-  int _value = 1;
-  bool isButtonActive = true;
+  int? _value;
+  int _selectedRadio = 0;
+  String? _layananImage;
+  String? _layananName;
   var count = 0.obs;
   final MyController c = Get.put(MyController());
-  final OrderController o = Get.put(OrderController());
+  final OrderController orderController = Get.put(OrderController());
+
+  bool validationBtn() {
+    if (c.totalkilogram != 0 && _selectedRadio != 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,22 +61,44 @@ class _KilogramScreenState extends State<KilogramScreen> {
                       .size(14)
                       .bold
                       .make(),
-                  '${_value}'
-                      .text
-                      .fontFamily('nunito')
-                      .color(colorName.primary)
-                      .size(14)
-                      .bold
-                      .make(),
+                  Obx(() =>
+                      "${_selectedRadio * int.parse(c.totalkilogram.toString())}"
+                          .text
+                          .fontFamily('nunito')
+                          .color(colorName.primary)
+                          .size(14)
+                          .bold
+                          .make()),
                 ]),
               ),
             ],
           ).pOnly(left: 20, right: 20, top: 10),
           ButtonWidget(
             text: "Continue",
-            onPressed: () {
-              Get.off(DetailOrderKilogram());
-            },
+            onPressed: validationBtn()
+                ? () {
+                    TotalData newTotalData = TotalData(
+                      totalPrice:
+                          '${_selectedRadio * int.parse(c.totalkilogram.toString())}',
+                      totalKilogram: c.totalkilogram.toString(),
+                    );
+
+                    LayananData newLayananData = LayananData(
+                      image: _layananImage.toString(),
+                      name: _layananName.toString(),
+                      price: _selectedRadio.toString(),
+                    );
+                    orderController.setTotalData(newTotalData);
+                    orderController.setLayananData(newLayananData);
+                    context.goNamed(
+                      Routes.detailOrderKilogramScreen,
+                      extra: {
+                        'totalData': newTotalData,
+                        'layananData': newLayananData,
+                      },
+                    );
+                  }
+                : null,
           ).p(20),
         ]),
       ),
@@ -83,74 +115,68 @@ class _KilogramScreenState extends State<KilogramScreen> {
             color: colorName.button,
           ),
         ),
-        // title: "Layanan Kami"
-        //     .text
-        //     .size(18)
-        //     .fontFamily('nunitoexb')
-        //     .bold
-        //     .color(colorName.button)
-        //     .make()
-        //     .centered(),
       ),
       body: SafeArea(
         child: Container(
           child: Column(
             children: [
               20.heightBox,
-              HStack([
-                Container(
-                  height: 45,
-                  width: 325,
-                  decoration: BoxDecoration(
-                    color: colorName.layer,
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        height: 45,
-                        width: 160,
-                        decoration: BoxDecoration(
-                          color: colorName.primary,
-                          borderRadius: BorderRadius.circular(50),
+              HStack(
+                [
+                  Container(
+                    height: 45,
+                    width: 325,
+                    decoration: BoxDecoration(
+                      color: colorName.layer,
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          height: 45,
+                          width: 160,
+                          decoration: BoxDecoration(
+                            color: colorName.primary,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: "Kilogram"
+                              .richText
+                              .color(colorName.background)
+                              .size(14)
+                              .fontFamily('nunito')
+                              .bold
+                              .makeCentered()
+                              .onTap(
+                                () {},
+                              ),
                         ),
-                        child: "Kilogram"
-                            .richText
-                            .color(colorName.background)
-                            .size(14)
-                            .fontFamily('nunito')
-                            .bold
-                            .makeCentered()
-                            .onTap(
-                              () {},
-                            ),
-                      ),
-                      5.widthBox,
-                      Container(
-                        height: 45,
-                        width: 160,
-                        decoration: BoxDecoration(
-                          color: colorName.layer,
-                          borderRadius: BorderRadius.circular(50),
+                        5.widthBox,
+                        Container(
+                          height: 45,
+                          width: 160,
+                          decoration: BoxDecoration(
+                            color: colorName.layer,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: "Satuan"
+                              .richText
+                              .color(colorName.grey)
+                              .size(14)
+                              .fontFamily('nunito')
+                              .bold
+                              .makeCentered()
+                              .onTap(
+                            () {
+                              // Get.off(const SatuanScreen());
+                            },
+                          ),
                         ),
-                        child: "Satuan"
-                            .richText
-                            .color(colorName.grey)
-                            .size(14)
-                            .fontFamily('nunito')
-                            .bold
-                            .makeCentered()
-                            .onTap(
-                          () {
-                            Get.off(const SatuanScreen());
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ).pOnly(left: 20, right: 20),
-              ]),
+                      ],
+                    ),
+                  ).pOnly(left: 20, right: 20),
+                ],
+              ),
               20.heightBox,
               HStack([
                 Image(
@@ -185,16 +211,22 @@ class _KilogramScreenState extends State<KilogramScreen> {
                 ),
                 child: BlocBuilder<KilogramCubit, KilogramState>(
                     builder: (context, state) {
-                  if (state is KilogramIsSucces) {
+                  if (state is KilogramIsLoading) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (state is KilogramIsSucces) {
                     return ListView.builder(
                         itemCount: state.data!.length,
                         itemBuilder: (BuildContext context, int index) {
                           var data = state.data![index].attributes;
+                          var dataImage = state.data![index].attributes
+                              .productImage.data.atributes;
                           return ListTile(
-                            leading: Image(
-                              image: AssetImage('images/kering.png'),
+                            leading: SvgPicture.network(
+                              BaseConfig.BASE_IMAGE_DOMAIN + dataImage.url,
                               fit: BoxFit.cover,
-                              width: 50,
+                              height: 50,
                             ),
                             title: Column(
                               children: [
@@ -227,6 +259,10 @@ class _KilogramScreenState extends State<KilogramScreen> {
                               groupValue: _value,
                               onChanged: (value) {
                                 setState(() {
+                                  _selectedRadio = int.parse(data.productPrice);
+                                  _layananImage = BaseConfig.BASE_IMAGE_DOMAIN +
+                                      dataImage.url;
+                                  _layananName = data.productName;
                                   _value = value as int;
                                 });
                               },
@@ -234,7 +270,7 @@ class _KilogramScreenState extends State<KilogramScreen> {
                           );
                         });
                   }
-                  return Container(child: Text('Kosong'));
+                  return Container(child: Center(child: Text('Kosong')));
                 }),
                 // .paddingSymmetric(vertical: 20),
               ).paddingSymmetric(horizontal: 20),
@@ -276,20 +312,20 @@ class _KilogramScreenState extends State<KilogramScreen> {
                       child: Row(
                         children: [
                           IconButton(
-                            onPressed: () => c.shirtmin(),
+                            onPressed: () => c.totalkilogrammin(),
                             icon: Image(
                               image: AssetImage('images/min.png'),
                             ),
                           ),
                           5.widthBox,
-                          Obx(() => "${c.shirt.toString()}"
+                          Obx(() => "${c.totalkilogram.toString()}"
                               .text
                               .fontFamily('nunitoexb')
                               .size(16)
                               .make()),
                           5.widthBox,
                           IconButton(
-                            onPressed: () => c.shirtplus(),
+                            onPressed: () => c.totalkilogramplus(),
                             icon: Image(
                               image: AssetImage('images/plus.png'),
                             ),

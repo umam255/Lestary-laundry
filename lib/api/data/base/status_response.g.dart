@@ -11,6 +11,7 @@ StatusResponse _$StatusResponseFromJson(Map<String, dynamic> json) =>
       status: json['status'] as int?,
       name: json['name'] as String?,
       message: json['message'] as String?,
+      details: json['details'],
     );
 
 Map<String, dynamic> _$StatusResponseToJson(StatusResponse instance) =>
@@ -18,4 +19,5 @@ Map<String, dynamic> _$StatusResponseToJson(StatusResponse instance) =>
       'status': instance.status,
       'name': instance.name,
       'message': instance.message,
+      'details': instance.details,
     };

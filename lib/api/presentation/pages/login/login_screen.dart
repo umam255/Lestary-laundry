@@ -111,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ]).pOnly(left: 20),
       TextFormField(
         controller: emailController,
-        keyboardType: TextInputType.emailAddress,
+        keyboardType: TextInputType.text,
         decoration: const InputDecoration(
           hintText: 'Masukan Email Anda',
           hintStyle: TextStyle(

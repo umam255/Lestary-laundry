@@ -2,7 +2,8 @@ part of 'controllers.dart';
 
 class MyController extends GetxController {
   var order = 1.obs;
-  var shirt = 0.obs;
+  var totalkilogram = 1.obs;
+  var shirt = 1.obs;
   var tshirt = 0.obs;
   var underwear = 0.obs;
   var pants = 0.obs;
@@ -19,12 +20,23 @@ class MyController extends GetxController {
     }
   }
 
+  totalkilogramplus() {
+    totalkilogram.value++;
+  }
+
+  totalkilogrammin() {
+    if (totalkilogram.value <= 1) {
+    } else {
+      totalkilogram.value--;
+    }
+  }
+
   shirtplus() {
     shirt.value++;
   }
 
   shirtmin() {
-    if (shirt.value <= 0) {
+    if (shirt.value <= 1) {
     } else {
       shirt.value--;
     }
@@ -65,7 +77,28 @@ class MyController extends GetxController {
 }
 
 class OrderController extends GetxController {
-  var drywash = 2500.obs;
-  var irononly = 2500.obs;
-  var fullservice = 5000.obs;
+  OrderData? orderData;
+  TotalData? totalData;
+  LayananData? layananData;
+  DetailPenerima? detailPenerima;
+
+  void setOrderData(OrderData newOrderData) {
+    orderData = newOrderData;
+    update();
+  }
+
+  void setTotalData(TotalData newTotalData) {
+    totalData = newTotalData;
+    update();
+  }
+
+  void setLayananData(LayananData newLayananData) {
+    layananData = newLayananData;
+    update();
+  }
+
+  void setDetailPenerima(DetailPenerima newDetailPenerima) {
+    detailPenerima = newDetailPenerima;
+    update();
+  }
 }

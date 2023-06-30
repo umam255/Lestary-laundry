@@ -3,9 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lestari_laundry/api/data/repository/kilogram/kilogram_repository_impl.dart';
 import 'package:lestari_laundry/api/data/repository/login/login_repository_impl.dart';
+import 'package:lestari_laundry/api/data/repository/profile/profile_repository_impl.dart';
 import 'package:lestari_laundry/api/presentation/navigation/routerApi.dart';
 import 'package:lestari_laundry/api/presentation/pages/home/kilogram/kilogram_screen/cubit/kilogram_cubit.dart';
 import 'package:lestari_laundry/api/presentation/pages/login/cubit/login_cubit.dart';
+import 'package:lestari_laundry/api/presentation/pages/profile/cubit/profile_cubit.dart';
 import 'package:lestari_laundry/src/utilities/utilities.dart';
 
 void main() {
@@ -30,6 +32,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => KilogramCubit(KilogramRepositoryImpl()),
+        ),
+        BlocProvider(
+          create: (context) => ProfileCubit(ProfileRepositoryImpl()),
         ),
       ],
       child: MaterialApp.router(

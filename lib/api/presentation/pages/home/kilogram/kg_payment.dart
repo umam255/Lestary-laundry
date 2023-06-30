@@ -1,13 +1,17 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of '../../../../../src/screens/screens.dart';
 
 class KgPayment extends StatefulWidget {
-  const KgPayment({super.key});
+  const KgPayment({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<KgPayment> createState() => _KgPaymentState();
 }
 
 class _KgPaymentState extends State<KgPayment> {
+  final OrderController orderController = Get.find<OrderController>();
   int _value = 1;
   @override
   Widget build(BuildContext context) {
@@ -85,7 +89,7 @@ class _KgPaymentState extends State<KgPayment> {
           ButtonWidget(
             text: 'Continue',
             onPressed: () {
-              Get.off(CodKg());
+              // Get.off(CodKg());
             },
           ).pOnly(left: 20, right: 20, bottom: 20, top: 5),
         ]),
@@ -196,7 +200,7 @@ class _KgPaymentState extends State<KgPayment> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    "Cuci lengkap"
+                    "${orderController.layananData?.name}"
                         .text
                         .size(12)
                         .bold
@@ -204,7 +208,7 @@ class _KgPaymentState extends State<KgPayment> {
                         .color(colorName.grey)
                         .make()
                         .p(10),
-                    "15.000"
+                    "${orderController.totalData?.totalPrice}"
                         .text
                         .size(12)
                         .bold

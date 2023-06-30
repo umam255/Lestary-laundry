@@ -1,7 +1,17 @@
-part of '../../../../../src/screens/screens.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+part of '../../../../../../src/screens/screens.dart';
 
-class KgSumary extends StatelessWidget {
-  const KgSumary({super.key});
+class KgSumary extends StatefulWidget {
+  const KgSumary({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<KgSumary> createState() => _KgSumaryState();
+}
+
+class _KgSumaryState extends State<KgSumary> {
+  final OrderController orderController = Get.find<OrderController>();
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +55,7 @@ class KgSumary extends StatelessWidget {
                     .color(colorName.button)
                     .size(14)
                     .make(),
-                '18.000'
+                'Total'
                     .text
                     .fontFamily('nunito')
                     .color(colorName.primary)
@@ -58,7 +68,7 @@ class KgSumary extends StatelessWidget {
           ButtonWidget(
             text: 'Payment',
             onPressed: () {
-              Get.off(KgPayment());
+              context.goNamed(Routes.kgPaymentScreen);
             },
           ).pOnly(left: 20, right: 20, bottom: 20, top: 5),
         ]),
@@ -101,13 +111,17 @@ class KgSumary extends StatelessWidget {
                     width: 60,
                   ).p(10),
                   VStack([
-                    "Cuci Lengkap"
+                    "${orderController.layananData?.name}"
                         .text
                         .size(14)
                         .color(colorName.primary)
                         .bold
                         .make(),
-                    "IDR 5.000/KG".text.size(12).bold.make(),
+                    "IDR ${orderController.layananData?.price}/KG"
+                        .text
+                        .size(12)
+                        .bold
+                        .make(),
                   ]).pOnly(left: 20),
                 ]),
               ]),
@@ -128,7 +142,12 @@ class KgSumary extends StatelessWidget {
                         .color(colorName.primary)
                         .bold
                         .make(),
-                    "3 KG".text.size(14).color(colorName.black).bold.make(),
+                    "${orderController.totalData?.totalKilogram} KG"
+                        .text
+                        .size(14)
+                        .color(colorName.black)
+                        .bold
+                        .make(),
                   ],
                 ),
               ]).p(15),
@@ -227,7 +246,7 @@ class KgSumary extends StatelessWidget {
                       .fontFamily('nunito')
                       .color(colorName.button)
                       .make(),
-                  "Vaiz"
+                  "${orderController.detailPenerima?.name}"
                       .text
                       .size(14)
                       .bold
@@ -244,7 +263,7 @@ class KgSumary extends StatelessWidget {
                       .fontFamily('nunito')
                       .color(colorName.button)
                       .make(),
-                  "+6289866653849"
+                  "${orderController.detailPenerima?.phoneNumber}"
                       .text
                       .size(14)
                       .bold
@@ -261,7 +280,7 @@ class KgSumary extends StatelessWidget {
                       .fontFamily('nunito')
                       .color(colorName.button)
                       .make(),
-                  "Jl. Kemang Timur No.34"
+                  "${orderController.detailPenerima?.address}"
                       .text
                       .size(14)
                       .bold
@@ -294,14 +313,14 @@ class KgSumary extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    "Cuci lengkap"
+                    "${orderController.layananData?.name}"
                         .text
                         .size(14)
                         .bold
                         .fontFamily('nunito')
                         .color(colorName.button)
                         .make(),
-                    "15.000"
+                    "${orderController.totalData?.totalPrice}"
                         .text
                         .size(14)
                         .bold

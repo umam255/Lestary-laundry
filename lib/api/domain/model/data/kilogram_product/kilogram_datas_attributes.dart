@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:lestari_laundry/api/domain/model/data/kilogram_product/product_image.dart';
 import 'package:lestari_laundry/api/domain/model/data/kilogram_product/product_image_data.dart';
 
 class KilogramAttributes {
@@ -11,7 +12,7 @@ class KilogramAttributes {
   String updatedAt;
   String publishedAt;
   List productVariant;
-  ProductImageData productImage;
+  ProductImage productImage;
 
   KilogramAttributes(
     this.productName,

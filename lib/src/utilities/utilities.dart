@@ -17,6 +17,5 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 part 'color.dart';
 part 'constanta.dart';
-part 'router.dart';
+// part 'router.dart';
 part 'commons.dart';
-

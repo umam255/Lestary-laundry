@@ -9,6 +9,7 @@ class AuthenticationHeadersRequest {
   Map<String, String> toHeader() {
     return {
       'Authorization': 'Bearer $accesToken',
+      'Content-Type': 'application/json',
     };
   }
 }

@@ -4,6 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:lestari_laundry/api/data/model/kilogram_product/kilogram_datas_attributes_response.dart';
 import 'package:lestari_laundry/api/domain/model/data/kilogram_product/kilogram_data.dart';
 import 'package:lestari_laundry/api/domain/model/data/kilogram_product/kilogram_datas_attributes.dart';
+import 'package:lestari_laundry/api/domain/model/data/kilogram_product/product_image.dart';
 import 'package:lestari_laundry/api/domain/model/data/kilogram_product/product_image_data.dart';
 import 'package:lestari_laundry/api/domain/model/data/kilogram_product/product_images_attributes.dart';
 
@@ -43,10 +44,28 @@ class KilogramDataResponse implements KilogramDataResponseMapper {
             '',
             '',
             [],
-            ProductImageData(
-              0,
-              ProductImageAttributes(
-                  '', '', '', 0, 0, '', '', '', '', 0, '', '', '', '', '', ''),
+            ProductImage(
+              ProductImageData(
+                0,
+                ProductImageAttributes(
+                  '',
+                  '',
+                  '',
+                  0,
+                  0,
+                  '',
+                  '',
+                  '',
+                  '',
+                  0,
+                  '',
+                  '',
+                  '',
+                  '',
+                  '',
+                  '',
+                ),
+              ),
             ),
           ),
     );

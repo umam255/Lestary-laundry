@@ -22,14 +22,18 @@ class KilogramCubit extends Cubit<KilogramState> {
     // final token = await Commons().getToken();
     final tokenManual = BaseConfig.TOKEN;
 
-    final response = await repository.fetchKilogram(
-      AuthenticationHeadersRequest(tokenManual),
-    );
+    if (tokenManual != '') {
+      final response = await repository.fetchKilogram(
+        AuthenticationHeadersRequest(tokenManual),
+      );
 
-    if (response is ResultSuccess) {
-      emit(KilogramIsSucces(data: (response as ResultSuccess).data));
+      if (response is ResultSuccess) {
+        emit(KilogramIsSucces(data: (response as ResultSuccess).data));
+      } else {
+        emit(KilogramIsFailed(message: (response as ResultError).message));
+      }
     } else {
-      emit(KilogramIsFailed(message: (response as ResultError).message));
+      emit(KilogramIsFailed(message: 'Forbidden'));
     }
   }
 }

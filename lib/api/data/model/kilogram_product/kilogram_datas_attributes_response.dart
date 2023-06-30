@@ -1,7 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:json_annotation/json_annotation.dart';
 import 'package:lestari_laundry/api/data/model/kilogram_product/product_image_data_response.dart';
+import 'package:lestari_laundry/api/data/model/kilogram_product/product_images_response.dart';
 import 'package:lestari_laundry/api/domain/model/data/kilogram_product/kilogram_datas_attributes.dart';
+import 'package:lestari_laundry/api/domain/model/data/kilogram_product/product_image.dart';
 import 'package:lestari_laundry/api/domain/model/data/kilogram_product/product_image_data.dart';
 import 'package:lestari_laundry/api/domain/model/data/kilogram_product/product_images_attributes.dart';
 part 'kilogram_datas_attributes_response.g.dart';
@@ -22,7 +24,7 @@ class KilogramDataAttributesResponse
   String? updatedAt;
   String? publishedAt;
   List? productVariant;
-  ProductImageDataResponse? productImage;
+  ProductImageResponse? productImage;
 
   KilogramDataAttributesResponse({
     this.productName,
@@ -45,37 +47,37 @@ class KilogramDataAttributesResponse
   @override
   KilogramAttributes toKilogramAttributes() {
     return KilogramAttributes(
-      productName ?? '',
-      productType ?? '',
-      productDescription ?? '',
-      productPrice ?? '',
-      minimumOrder ?? '',
-      createdAt ?? '',
-      updatedAt ?? '',
-      publishedAt ?? '',
-      productVariant ?? [],
-      productImage?.toProductImageData() ??
-          ProductImageData(
-            0,
-            ProductImageAttributes(
-              '',
-              '',
-              '',
-              0,
-              0,
-              '',
-              '',
-              '',
-              '',
-              0,
-              '',
-              '',
-              '',
-              '',
-              '',
-              '',
-            ),
-          ),
-    );
+        productName ?? '',
+        productType ?? '',
+        productDescription ?? '',
+        productPrice ?? '',
+        minimumOrder ?? '',
+        createdAt ?? '',
+        updatedAt ?? '',
+        publishedAt ?? '',
+        productVariant ?? [],
+        productImage?.toProductImage() ??
+            ProductImage(
+              ProductImageData(
+                  0,
+                  ProductImageAttributes(
+                    '',
+                    '',
+                    '',
+                    0,
+                    0,
+                    '',
+                    '',
+                    '',
+                    '',
+                    0,
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                  ),),
+            ),);
   }
 }

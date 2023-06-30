@@ -5,12 +5,12 @@ part 'base_remote_response.g.dart';
 
 @JsonSerializable(genericArgumentFactories: true, includeIfNull: true)
 class BaseRemoteResponse<R> {
-  StatusResponse? error;
   R? data;
+  StatusResponse? error;
 
   BaseRemoteResponse({
-    this.error,
     this.data,
+    this.error,
   });
 
   factory BaseRemoteResponse.fromJson(

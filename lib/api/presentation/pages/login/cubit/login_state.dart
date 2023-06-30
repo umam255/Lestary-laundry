@@ -27,3 +27,12 @@ class LoginIsError extends LoginStates {
     this.message,
   });
 }
+
+class ProfileLoaded extends LoginStates {
+  final LoginData userData;
+
+  ProfileLoaded(this.userData);
+
+  @override
+  List<Object> get props => [userData];
+}

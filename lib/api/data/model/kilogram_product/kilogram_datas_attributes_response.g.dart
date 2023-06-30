@@ -20,7 +20,7 @@ KilogramDataAttributesResponse _$KilogramDataAttributesResponseFromJson(
       productVariant: json['productVariant'] as List<dynamic>?,
       productImage: json['productImage'] == null
           ? null
-          : ProductImageDataResponse.fromJson(
+          : ProductImageResponse.fromJson(
               json['productImage'] as Map<String, dynamic>),
     );
 

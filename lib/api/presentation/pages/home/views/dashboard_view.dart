@@ -155,7 +155,7 @@ class _DashboardViewState extends State<DashboardView> {
           color: colorName.secondary,
           child: InkWell(
             onTap: () {
-              // Get.to(KilogramScreen());
+              BlocProvider.of<KilogramCubit>(context).fetchKilogram();
               context.goNamed(Routes.kilogramScreen);
             },
             splashColor: colorName.primary,
